@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 26, 2014 11:56:49 PM by Hibernate Tools 3.2.1.GA -->
+
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Patient" table="PATIENT" catalog="smartchannel">
+
+		<id name="patientId" type="java.lang.Integer">
+			<column name="PATIENT_ID" />
+			<generator class="identity" />
+		</id>
+
+		<property name="patientFirstName" type="string">
+			<column name="PATIENT_FIRST_NAME" />
+		</property>
+		<property name="patientLastName" type="string">
+			<column name="PATIENT_LAST_NAME" />
+		</property>
+		<property name="patientAge" type="java.lang.Integer">
+			<column name="PATIENT_AGE" />
+		</property>
+		<property name="patientDescription" type="string">
+			<column name="PATIENT_DESCRIPTION" />
+		</property>
+		<property name="patientMobileNumber" type="string">
+			<column name="PATIENT_MOBILE_NUMBER" length="45" />
+		</property>
+		<property name="patientEmail" type="string">
+			<column name="PATIENT_EMAIL" />
+		</property>
+		<property name="patientCreatedDatetime" type="timestamp">
+			<column name="PATIENT_CREATED_DATETIME" length="19" />
+		</property>
+		<property name="patientModifiedDatetime" type="timestamp">
+			<column name="PATIENT_MODIFIED_DATETIME" length="19" />
+		</property>
+		<property name="patientGender" type="string">
+			<column name="PATIENT_GENDER" length="10" />
+		</property>
+		<property name="patientAddress" type="string">
+			<column name="PATIENT_ADDRESS" length="45" />
+		</property>
+		<property name="patientNic" type="string">
+			<column name="PATIENT_NIC" length="10" />
+		</property>
+
+		<set name="appoinments" inverse="true">
+			<key>
+				<column name="PATIENT_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" />
+		</set>
+
+		<set name="offers" inverse="true">
+			<key>
+				<column name="PATIENT_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.configuration.miscellaneousmanagement.domain.Offer" />
+		</set>
+		
+		<set name="appointmentSupportivedata" inverse="true">
+            <key>
+                <column name="PATIENT_ID" />
+            </key>
+            <one-to-many class="com.capsurfit.smartchannel.app.common.domain.AppointmentSupportiveData" />
+        </set>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class catalog="smartclinic" name="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.GovernmentHospital" table="GOVERNMENT_HOSPITAL">
+    <id name="hospitalId" type="int">
+      <column name="HOSPITAL_ID"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" fetch="select" name="doctor">
+      <column name="DOCTOR_ID" not-null="true"/>
+    </many-to-one>
+    <property name="hospitalName" type="string">
+      <column name="HOSPITAL_NAME"/>
+    </property>
+    <property name="city" type="string">
+      <column name="CITY"/>
+    </property>
+    <property name="joinedDatetime" type="timestamp">
+      <column length="19" name="JOINED_DATETIME"/>
+    </property>
+    <property name="resignedDatetime" type="string">
+      <column name="RESIGNED_DATETIME"/>
+    </property>
+    <property name="isActive" type="java.lang.Byte">
+      <column name="IS_ACTIVE"/>
+    </property>
+    <property name="description" type="string">
+      <column name="DESCRIPTION"/>
+    </property>
+    <property name="designation" type="string">
+      <column name="DESIGNATION"/>
+    </property>
+  </class>
+</hibernate-mapping>

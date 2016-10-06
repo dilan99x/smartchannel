@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <!-- Database Configuration -->
+    <import resource="com/capsurfit/smartchannel/system-config/spring/HibernateSessionFactory.xml"/>
+
+    <!-- Beans Declaration -->
+    <import resource="com/capsurfit/smartchannel/app-config/common/spring/AppointmentSupportiveBean.xml"/>
+
+    <import
+            resource="com/capsurfit/smartchannel/app-config/configuration/channelcentermanagement/spring/ChannelCenterBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/configuration/doctormanagement/spring/DoctorBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/system/authentication/spring/AuthenticationBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/spring/ClinicBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/spring/AppointmentBean.xml"/>
+
+    <import
+            resource="com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/spring/AppointmentConfirmationBean.xml"/>
+
+    <import
+            resource="com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/spring/PatientInforBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/appservice/paymentgateway/spring/PaymentGatewayBean.xml"/>
+
+    <import resource="com/capsurfit/smartchannel/app-config/report/spring/ReportBean.xml"/>
+</beans>

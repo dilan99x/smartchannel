@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="paymentGateway" namespace="/" extends="struts-default">
+		<action name="loadPaymentGateway" class="paymentGatewaySupport" method="loadPaymentGateway">
+			<result name="success">PaymentGateway.jsp</result>
+			<result name="input">PaymentGateway.jsp</result>
+		</action>
+
+		<action name="paymentGatewaySupport!*" class="paymentGatewaySupport" method="{1}">
+			<result name="success">TermsandCondition.jsp</result>
+			<result name="input">PaymentGateway.jsp</result>
+		</action>
+	</package>
+</struts>

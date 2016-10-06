@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class catalog="smartchannel" name="com.capsurfit.smartchannel.app.appservice.medicalcheckupmanagement.domain.CheckupType" table="CHECKUP_TYPE">
+    <id name="checkupTypeId" type="java.lang.Integer">
+      <column name="CHECKUP_TYPE_ID"/>
+      <generator class="identity"/>
+    </id>
+    <property name="checkupTypeCode" type="string">
+      <column name="CHECKUP_TYPE_CODE"/>
+    </property>
+    <property name="description" type="string">
+      <column name="DESCRIPTION"/>
+    </property>
+    <property name="dateAdded" type="timestamp">
+      <column length="19" name="DATE_ADDED"/>
+    </property>
+    <property name="createdDatetime" type="timestamp">
+      <column length="19" name="CREATED_DATETIME"/>
+    </property>
+    <property name="modifiedDatetime" type="timestamp">
+      <column length="19" name="MODIFIED_DATETIME"/>
+    </property>
+    <set inverse="true" name="medicalCheckups">
+      <key>
+        <column name="CHECKUP_TYPE_ID" not-null="true"/>
+      </key>
+      <one-to-many class="com.capsurfit.smartchannel.app.appservice.medicalcheckupmanagement.domain.MedicalCheckup"/>
+    </set>
+  </class>
+</hibernate-mapping>

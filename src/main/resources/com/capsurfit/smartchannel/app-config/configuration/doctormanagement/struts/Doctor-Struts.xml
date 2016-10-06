@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="doctor" namespace="/" extends="struts-default">
+		<action name="doctorSupport!*" class="doctorSupport" method="{1}">
+			<result name="success" type="redirect">fetchDoctors</result>
+			<result name="input" type="redirect">fetchDoctors</result>
+		</action>
+
+		<action name="deleteDoctor" class="doctorSupport" method="deleteDoctor">
+			<result name="success" type="redirect">fetchDoctors</result>
+			<result name="input">RegisterDoctor.jsp</result>
+		</action>
+
+		<action name="fetchDoctors" class="doctorSupport" method="fetchDoctors">
+			<result name="success">RegisterDoctor.jsp</result>
+			<result name="input">RegisterDoctor.jsp</result>
+		</action>
+
+		<action name="doctorRegistration">
+			<result name="success" type="redirect">fetchDoctors</result>
+		</action>
+	</package>
+
+	<package name="majax2" extends="struts-default,json-default" namespace="/ajax">
+		<action name="updateDoctor" class="doctorSupport" method="updateDoctor">
+			<result type="json"></result>
+		</action>
+	</package>
+</struts>
+
+

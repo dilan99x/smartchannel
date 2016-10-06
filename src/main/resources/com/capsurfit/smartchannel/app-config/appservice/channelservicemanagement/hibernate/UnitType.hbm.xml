@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.UnitType" table="UNIT_TYPE" catalog="smartchannel">
+		<id name="unitTypeId" type="int">
+			<column name="UNIT_TYPE_ID" />
+			<generator class="assigned" />
+		</id>
+		<property name="unitTypeCode" type="string">
+			<column name="UNIT_TYPE_CODE" length="15" />
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" length="45" />
+		</property>
+		<set name="clinicProperties" inverse="true">
+			<key>
+				<column name="UNIT_TYPE_ID" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicProperty" />
+		</set>
+	</class>
+</hibernate-mapping>

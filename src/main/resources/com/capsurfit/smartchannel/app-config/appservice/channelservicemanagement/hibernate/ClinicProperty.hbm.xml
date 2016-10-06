@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicProperty" table="CLINIC_PROPERTY"
+		catalog="smartclinic">
+		<id name="clinicPropertyId" type="int">
+			<column name="CLINIC_PROPERTY_ID" />
+			<generator class="assigned" />
+		</id>
+		<many-to-one name="unitType" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.UnitType"
+			fetch="select">
+			<column name="UNIT_TYPE_ID" />
+		</many-to-one>
+		<many-to-one name="clinic" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic"
+			fetch="select">
+			<column name="CLINIC_ID" />
+		</many-to-one>
+		<many-to-one name="clinicProportyType" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicProportyType"
+			fetch="select">
+			<column name="CLINIC_PROPERTY_TYPE_ID" />
+		</many-to-one>
+		<property name="startDate" type="timestamp">
+			<column name="START_DATE" length="19" />
+		</property>
+		<property name="endDate" type="timestamp">
+			<column name="END_DATE" length="19" />
+		</property>
+		<property name="unitQuantity" type="java.lang.Integer">
+			<column name="UNIT_QUANTITY" />
+		</property>
+		<property name="isActive" type="string">
+			<column name="IS_ACTIVE" length="2" />
+		</property>
+	</class>
+
+	<sql-query name="fetchClinicPropertyByCriteria">
+		<return alias="d" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicProperty" />
+        <![CDATA[
+            select 
+                cp.*
+              from smartchannel.CLINIC_PROPERTY cp
+			  where
+                (cp.CLINIC_ID = :clinicId)
+        ]]>
+	</sql-query>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="patientInforSupport" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.web.PatientInforSupport">
+		<property name="patientInforManager" ref="patientInforManager" />
+	</bean>
+
+	<bean id="patientInforManager" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.service.PatientInforManagerImpl">
+		<property name="patientInforDao" ref="patientInforDao" />
+		<property name="clinicDao" ref="clinicDao" />
+		<property name="doctorDao" ref="doctorDao" />
+		<property name="channelCenterDao" ref="channelCenterDao" />
+		<property name="appointmentSupportiveDataManager" ref="appointmentSupportiveDataManager" />
+	</bean>
+
+	<bean id="patientInforDao" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.dao.PatientInforDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

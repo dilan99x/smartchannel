@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="appointmentSupport" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.web.AppointmentSupport">
+		<property name="lookupDao" ref="lookupDao"></property>
+		<property name="appointmentManager" ref="appointmentManager" />
+		<property name="clinicManager" ref="clinicManager" />
+	</bean>
+
+	<bean id="lookupDao" class="com.capsurfit.smartchannel.app.common.dao.LookupDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="appointmentManager" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.service.AppointmentManagerImpl">
+		<property name="appointmentDao" ref="appointmentDao" />
+		<property name="clinicPropertyDao" ref="clinicPropertyDao" />
+		<property name="clinicDao" ref="clinicDao" />
+		<property name="doctorDao" ref="doctorDao"/>
+		<property name="channelCenterDao" ref="channelCenterDao"/>
+	</bean>
+
+	<bean id="appointmentDao" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.dao.AppointmentDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="clinicPropertyDao" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.dao.ClinicPropertyDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

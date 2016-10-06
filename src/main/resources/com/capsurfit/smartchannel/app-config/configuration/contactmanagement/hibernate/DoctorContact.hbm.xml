@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class
+		name="com.capsurfit.smartchannel.app.configuration.contactmanagement.domain.DoctorContact"
+		table="DOCTOR_CONTACT" catalog="smartclinic">
+		<id name="doctorContactId" type="java.lang.Integer">
+			<column name="DOCTOR_CONTACT_ID" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="doctor" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" fetch="select">
+			<column name="DOCTOR_ID" />
+		</many-to-one>
+		<property name="contactType" type="string">
+			<column name="CONTACT_TYPE" length="45" />
+		</property>
+		<property name="mobile" type="string">
+			<column name="MOBILE" length="45" />
+		</property>
+		<property name="residence" type="string">
+			<column name="RESIDENCE" length="45" />
+		</property>
+		<property name="fax" type="string">
+			<column name="FAX" length="45" />
+		</property>
+		<property name="email" type="string">
+			<column name="EMAIL" length="70" />
+		</property>
+		<property name="web" type="string">
+			<column name="WEB" length="70" />
+		</property>
+		<property name="isActive" type="java.lang.Byte">
+			<column name="IS_ACTIVE" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column name="CREATED_DATETIME" length="19" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column name="MODIFIED_DATETIME" length="19" />
+		</property>
+	</class>
+</hibernate-mapping>

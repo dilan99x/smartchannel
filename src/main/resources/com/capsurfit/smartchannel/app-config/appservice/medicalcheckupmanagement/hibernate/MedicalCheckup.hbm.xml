@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class catalog="smartchannel" name="com.capsurfit.smartchannel.app.appservice.medicalcheckupmanagement.domain.MedicalCheckup" table="MEDICAL_CHECKUP">
+    <id name="checkupId" type="java.lang.Integer">
+      <column name="CHECKUP_ID"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.capsurfit.smartchannel.app.appservice.medicalcheckupmanagement.domain.CheckupType" fetch="select" name="checkupType">
+      <column name="CHECKUP_TYPE_ID" not-null="true"/>
+    </many-to-one>
+    <property name="checkupDatetime" type="timestamp">
+      <column length="19" name="CHECKUP_DATETIME"/>
+    </property>
+    <property name="totalPrice" type="java.lang.Double">
+      <column name="TOTAL_PRICE" precision="22" scale="0">
+        <comment>This is the total price including Hospital price + deductions given + additions added</comment>
+      </column>
+    </property>
+    <property name="createdDatetime" type="timestamp">
+      <column length="19" name="CREATED_DATETIME"/>
+    </property>
+    <property name="modifiedDatetime" type="timestamp">
+      <column length="19" name="MODIFIED_DATETIME"/>
+    </property>
+    <set inverse="false" name="channelCenters" table="CHECKUP_SLIP">
+      <key>
+        <column name="CHECKUP_ID" not-null="true"/>
+      </key>
+      <many-to-many entity-name="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter">
+        <column name="CHANNEL_CENTER_ID" not-null="true"/>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

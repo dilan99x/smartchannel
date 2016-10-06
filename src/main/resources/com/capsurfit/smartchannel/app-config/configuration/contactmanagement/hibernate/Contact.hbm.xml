@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class catalog="smartclinic" name="com.capsurfit.smartchannel.app.configuration.contactmanagement.domain.Contact" table="CONTACT">
+    <id name="contactId" type="java.lang.Integer">
+      <column name="CONTACT_ID"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter" fetch="select" name="channelCenter">
+      <column name="CHANNEL_CENTER_ID"/>
+    </many-to-one>
+    <property name="entityPkCode" type="string">
+      <column name="ENTITY_PK_CODE"/>
+    </property>
+    <property name="contactType" type="string">
+      <column length="45" name="CONTACT_TYPE"/>
+    </property>
+    <property name="contactNumber" type="java.lang.Integer">
+      <column name="CONTACT_NUMBER"/>
+    </property>
+    <property name="fax" type="java.lang.Integer">
+      <column name="FAX"/>
+    </property>
+    <property name="email" type="string">
+      <column length="50" name="EMAIL"/>
+    </property>
+    <property name="web" type="string">
+      <column length="50" name="WEB"/>
+    </property>
+    <property name="isActive" type="java.lang.Byte">
+      <column name="IS_ACTIVE"/>
+    </property>
+    <property name="createdDatetime" type="timestamp">
+      <column length="19" name="CREATED_DATETIME"/>
+    </property>
+    <property name="modifiedDatetime" type="timestamp">
+      <column length="19" name="MODIFIED_DATETIME"/>
+    </property>
+  </class>
+</hibernate-mapping>

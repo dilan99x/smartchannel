@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="channelCenterSupport"
+		class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.web.ChannelCenterSupport">
+		<property name="channelCenterManager" ref="channelCenterManager" />
+	</bean>
+
+	<bean id="channelCenterManager"
+		class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.service.ChannelCenterManagerImpl">
+		<property name="channelCenterDao" ref="channelCenterDao" />
+	</bean>
+
+	<bean id="channelCenterDao"
+		class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.dao.ChannelCenterDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

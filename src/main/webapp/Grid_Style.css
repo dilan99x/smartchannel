@@ -1,0 +1,79 @@
+@CHARSET "UTF-8";
+
+.dynamic_grid {
+	font-family: Helvetica, Arial, sans-serif;
+	background: #d7d7d7;
+	border: 0;
+}
+
+.cs_save_grid {
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 2px;
+	padding-bottom: 14px;
+	padding-right: 1px;
+	padding-left: 1px;
+	width: 100px;
+	background: #33CCCC;
+}
+
+.descriptive_col {
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-right: 1px;
+	padding-left: 1px;
+	width: 400px;
+	background: #d7d7d7;
+	border: 0;
+}
+
+.table-wrapper {
+	overflow-x: scroll;
+	overflow-y: visible;
+	width: 740px;
+}
+
+.myx {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-right: 1px;
+	padding-left: 1px;
+	width: 30px;
+}
+
+.terms_n_condition_header {
+	font-family: 'Tangerine', serif;
+	font-size: 30px;
+}
+
+.terms_n_condition_subheadings {
+	font-family: 'Open Sans', serif;
+	font-size: 20px;
+	padding-left: 35px;
+}
+
+.member_description {
+	font-family: sans-serif;
+	padding-top: 10px;
+	padding-right: 35px;
+	padding-left: 35px;
+	
+}
+
+.terms_n_condition_descriptions {
+	font-family: 'Open Sans', serif;
+	padding-right: 35px;
+	padding-left: 35px;
+	font-size: 13px;
+	text-align: justify;
+}
+
+.terms_n_condition_confirmation {
+	font-family: 'Open Sans', serif;
+	padding-top: 10px;
+	padding-right: 35px;
+	padding-left: 35px;
+	font-size: 15px;
+	text-align: justify;
+	font-weight: bold;
+}

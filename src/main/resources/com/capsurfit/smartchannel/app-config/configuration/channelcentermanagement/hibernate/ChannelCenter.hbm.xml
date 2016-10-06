@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class catalog="smartchannel"
+		name="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter"
+		table="CHANNEL_CENTER">
+		<id name="channelCenterId" type="java.lang.Integer">
+			<column name="CHANNEL_CENTER_ID" />
+			<generator class="identity" />
+		</id>
+		<property name="channelCenterName" type="string">
+			<column length="45" name="CHANNEL_CENTER_NAME"/>
+		</property>
+		<property name="address" type="string">
+			<column name="ADDRESS"/>
+		</property>
+		<property name="residentialCity" type="string">
+			<column name="RESIDENTIAL_CITY">
+				<comment>This should be the location city of the Channel center. Ex:
+					Narahenpita is the RESIDENTIAL_CITY for Asiri Hospital pvt</comment>
+			</column>
+		</property>
+		<property name="mainCity" type="string">
+			<column name="MAIN_CITY"/>
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="isActive" type="java.lang.Byte">
+			<column name="IS_ACTIVE" />
+		</property>
+		<property name="imageSource" type="string">
+			<column name="IMAGE_SOURCE" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column length="19" name="CREATED_DATETIME" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column length="19" name="MODIFIED_DATETIME" />
+		</property>
+		<set inverse="true" name="medicalCheckups" table="CHECKUP_SLIP">
+			<key>
+				<column name="CHANNEL_CENTER_ID" not-null="true" />
+			</key>
+			<many-to-many
+				entity-name="com.capsurfit.smartchannel.app.appservice.medicalcheckupmanagement.domain.MedicalCheckup">
+				<column name="CHECKUP_ID" not-null="true" />
+			</many-to-many>
+		</set>
+		
+		<set inverse="true" name="channelCenterDoctors">
+			<key>
+				<column name="CHANNEL_CENTER_ID" not-null="true" />
+			</key>
+			<one-to-many
+				class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenterDoctor" />
+		</set>
+		
+		<set inverse="true" name="channelCenterContacts">
+			<key>
+				<column name="CHANNEL_CENTER_ID" not-null="true" />
+			</key>
+			<one-to-many
+				class="com.capsurfit.smartchannel.app.configuration.contactmanagement.domain.Contact" />
+		</set>
+		
+		<set name="clinics" inverse="true" fetch="join">
+            <key>
+                <column name="CHANNEL_CENTER_ID" />
+            </key>
+            <one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+        </set>
+		
+		<join catalog="smartchannel" table="CONTACT" inverse="true">
+        <!-- Here inverse="true" then hibernate will not insert or update the properties defined by this join. -->
+        <key column="CHANNEL_CENTER_ID"/>
+
+        <property name="email" type="string" insert="false" update="false" column="EMAIL"/>
+		<property name="web" type="string" insert="false" update="false" column="WEB"/>
+		<property name="contactNumber" type="java.lang.Integer" insert="false" update="false" column="CONTACT_NUMBER"/>
+		<property name="fax" type="java.lang.Integer" insert="false" update="false" column="FAX"/>
+    </join>
+	</class>
+
+	<sql-query name="findChannelCenterByCriteria">
+		<return alias="cc"
+			class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter" />
+        <![CDATA[
+            select
+                cc.*,
+                c.EMAIL,
+                c.WEB,
+                c.CONTACT_NUMBER,
+                c.FAX
+              from smartchannel.CHANNEL_CENTER cc
+              left outer join smartchannel.CONTACT c
+                on c.CHANNEL_CENTER_ID = cc.CHANNEL_CENTER_ID
+        ]]>
+	</sql-query>
+
+	<sql-query name="findChannelCenterById">
+		<return alias="cc"
+			class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter" />
+        <![CDATA[
+            select
+                cc.*,
+                null as EMAIL,
+                null as WEB,
+                null as CONTACT_NUMBER,
+                null as FAX
+              from smartchannel.CHANNEL_CENTER cc
+              where 
+                (cc.CHANNEL_CENTER_ID = :id)
+        ]]>
+	</sql-query>
+
+	<sql-query name="findChannelCenterByUniqueField">
+		<return alias="cc"
+			class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter" />
+        <![CDATA[
+            select
+                cc.*,
+                null as EMAIL,
+                null as WEB,
+                null as CONTACT_NUMBER,
+                null as FAX
+              from smartchannel.CHANNEL_CENTER cc
+              where 
+                (cc.CHANNEL_CENTER_NAME = :channelCenterName)
+				and (cc.RESIDENTIAL_CITY = :resCity)
+        ]]>
+	</sql-query>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class catalog="smartclinic" name="com.capsurfit.smartchannel.app.configuration.miscellaneousmanagement.domain.Offer" table="OFFER">
+    <id name="offerId" type="int">
+      <column name="OFFER_ID"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Patient" fetch="select" name="patient">
+      <column name="PATIENT_ID" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenterDoctor" fetch="select" name="channelCenterDoctor">
+      <column name="CHANNEL_CENTER_ID" not-null="true"/>
+      <column name="DOCTOR_ID" not-null="true"/>
+    </many-to-one>
+    <property name="additionApplied" type="java.lang.Double">
+      <column name="ADDITION_APPLIED" precision="22" scale="0"/>
+    </property>
+    <property name="diductionGiven" type="java.lang.Double">
+      <column name="DIDUCTION_GIVEN" precision="22" scale="0"/>
+    </property>
+    <property name="createdDatetime" type="timestamp">
+      <column length="19" name="CREATED_DATETIME"/>
+    </property>
+    <property name="modifiedDatetime" type="timestamp">
+      <column length="19" name="MODIFIED_DATETIME"/>
+    </property>
+    <property name="isActive" type="java.lang.Byte">
+      <column name="IS_ACTIVE"/>
+    </property>
+  </class>
+</hibernate-mapping>

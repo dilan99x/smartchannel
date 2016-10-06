@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.common.domain.Lookup">
+		<id name="key" column="LOOKUP_KEY">
+			<generator class="native"></generator>
+		</id>
+		<property name="value" column="LOOKUP_VALUE"></property>
+	</class>
+
+	<!-- ############################ system lookups ############################ -->
+	<sql-query name="lookupDoctors">
+		<return alias="l" class="com.capsurfit.smartchannel.app.common.domain.Lookup" />
+        <![CDATA[
+            select
+                d.DOCTOR_ID as LOOKUP_KEY,
+                d.NAME_WITH_INNITIALS as LOOKUP_VALUE
+              from smartchannel.DOCTOR d
+        ]]>
+	</sql-query>
+
+	<sql-query name="lookupChannelCenters">
+		<return alias="l" class="com.capsurfit.smartchannel.app.common.domain.Lookup" />
+        <![CDATA[
+            select
+                cc.CHANNEL_CENTER_ID as LOOKUP_KEY,
+                cc.CHANNEL_CENTER_NAME as LOOKUP_VALUE
+              from smartchannel.CHANNEL_CENTER cc
+        ]]>
+	</sql-query>
+
+	<sql-query name="lookupClinicTypes">
+		<return alias="l" class="com.capsurfit.smartchannel.app.common.domain.Lookup" />
+        <![CDATA[
+            select
+                ct.CLINIC_TYPE_ID as LOOKUP_KEY,
+                ct.CLINIC_TYPE_CODE as LOOKUP_VALUE
+              from smartchannel.CLINIC_TYPE ct
+        ]]>
+	</sql-query>
+
+	<sql-query name="lookupDoctorSpeciality">
+		<return alias="sp" class="com.capsurfit.smartchannel.app.common.domain.Lookup" />
+        <![CDATA[
+            select 
+                sp.SPECIALITY_ID as LOOKUP_KEY,
+                sp.SPECIALITY_CODE as LOOKUP_VALUE
+              from smartchannel.SPECIALITY sp
+        ]]>
+	</sql-query>
+</hibernate-mapping>

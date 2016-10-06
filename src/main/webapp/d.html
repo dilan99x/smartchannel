@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function m() {
+		var tbl = document.createElement('table');
+
+		var headerRow = document.createElement('tr');
+		
+		var col1 = document.createElement('th');
+		col1.innerHTML = "Hospital Name";
+		col1.style.border = "left";
+		//col1.style.border = "1px solid #FFFFFF";
+		
+		var col2 = document.createElement('th');
+		col2.innerHTML = "Location";
+		col2.style.border = "left";
+		//col2.style.border = "1px solid #FFFFFF";
+		    
+		var col3 = document.createElement('th');
+		col3.innerHTML = "Start time";
+		col3.style.border = "left";
+		//col3.style.border = "1px solid #FFFFFF";
+		
+		headerRow.appendChild(col1);
+		headerRow.appendChild(col2);
+		headerRow.appendChild(col3);
+
+		var dataColumnRow = document.createElement('tr');
+		
+		var dataColumn1 = document.createElement('td');
+		    dataColumn1.innerHTML = "Asiri Central Hospitals";
+		    dataColumn1.style.border = "left";
+		   // dataColumn1.style.border = "1px solid #FFFFFF";
+
+		var dataColumn2 = document.createElement('td');
+		dataColumn2.innerHTML = "4.00";
+		 dataColumn2.style.border = "left";
+		//dataColumn2.style.border = "1px solid #FFFFFF";
+
+		var dataColumn3 = document.createElement('td');
+		dataColumn3.innerHTML = "Narahenpita, Colombo";
+		 dataColumn3.style.border = "left";
+		//dataColumn3.style.border = "1px solid #FFFFFF";
+
+		dataColumnRow.appendChild(dataColumn1);
+		dataColumnRow.appendChild(dataColumn2);
+		dataColumnRow.appendChild(dataColumn3);
+
+		tbl.appendChild(headerRow);
+		tbl.appendChild(dataColumnRow);
+
+		//$("#xcd").append(tbl);
+		document.getElementById('xcd').appendChild(tbl);
+		alert("ncncn");
+		
+		
+		//var string = "<table class='dfdfdf'><tr><th>Hospital Name</th><th>Address</th></tr></table>";
+		
+		//document.getElementById("divID").innerHTML(string);
+
+	}
+</script>
+</head>
+<body>
+	<div id="xcd">
+		<input type="button"  onclick="m()">
+	</div>
+
+</body>
+</html>

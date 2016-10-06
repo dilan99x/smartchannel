@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="appointmentConfirmationSupport" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.web.AppointmentConfirmationSupport">
+		<property name="appointmentConfirmationManager" ref="appointmentConfirmationManager" />
+	</bean>
+
+	<bean id="appointmentConfirmationManager" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.service.AppointmentConfirmationManagerImpl">
+		<property name="appointmentConfirmationDao" ref="appointmentConfirmationDao" />
+		<property name="clinicDao" ref="clinicDao" />
+		<property name="doctorDao" ref="doctorDao" />
+		<property name="appointmentDao" ref="appointmentDao" />
+		<property name="patientInforDao" ref="patientInforDao" />
+		<property name="channelCenterDao" ref="channelCenterDao" />
+		<property name="appointmentSupportiveDataDao" ref="appointmentSupportiveDataDao" />
+	</bean>
+
+	<bean id="appointmentConfirmationDao" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.dao.AppointmentConfirmationDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

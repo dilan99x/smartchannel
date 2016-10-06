@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class catalog="smartchannel"
+           name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicType"
+           table="CLINIC_TYPE">
+        <id name="clinicTypeId" type="java.lang.Integer">
+            <column name="CLINIC_TYPE_ID"/>
+            <generator class="identity"/>
+        </id>
+        <property name="clinicTypeCode" type="string">
+            <column name="CLINIC_TYPE_CODE"/>
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION"/>
+        </property>
+        <property name="isActive" type="java.lang.Byte">
+            <column name="IS_ACTIVE"/>
+        </property>
+        <property name="createdDatetime" type="timestamp">
+            <column length="19" name="CREATED_DATETIME"/>
+        </property>
+        <property name="modifiedDatetime" type="timestamp">
+            <column length="19" name="MODIFIED_DATETIME"/>
+        </property>
+        <set inverse="true" name="clinics" lazy="true">
+            <key>
+                <column name="CLINIC_TYPE_ID" not-null="true"/>
+            </key>
+            <one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic"/>
+        </set>
+    </class>
+</hibernate-mapping>

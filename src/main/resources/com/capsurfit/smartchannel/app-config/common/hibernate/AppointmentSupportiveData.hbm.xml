@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 16, 2014 3:55:58 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.common.domain.AppointmentSupportiveData" table="APPOINTMENT_SUPPORT" catalog="smartchannel">
+		<id name="supportId" type="java.lang.Integer">
+			<column name="SUPPORT_ID" />
+			<generator class="identity" />
+		</id>
+		<property name="clinicId" type="java.lang.Integer">
+			<column name="CLINIC_ID" />
+		</property>
+		<property name="appointmentNo" type="java.lang.Integer">
+			<column name="APPOINTMENT_NO" />
+		</property>
+		<property name="appointmentTime" type="string">
+			<column name="APPOINTMENT_TIME" length="10" />
+		</property>
+		<property name="appointmentDate" type="timestamp">
+			<column name="APPOINTMENT_DATE" length="19" />
+		</property>
+
+		<property name="patientFirstName" type="string">
+			<column name="PATIENT_FIRST_NAME" length="45" />
+		</property>
+		<property name="patientLastName" type="string">
+			<column name="PATIENT_LAST_NAME" length="45" />
+		</property>
+		<property name="patientNic" type="string">
+			<column name="PATIENT_NIC" length="45" />
+		</property>
+		<property name="patientGender" type="string">
+			<column name="PATIENT_GENDER" length="45" />
+		</property>
+		<property name="patientMobileNumber" type="string">
+			<column name="PATIENT_MOBILE_NUMBER" length="45" />
+		</property>
+		<property name="patientAddress" type="string">
+			<column name="PATIENT_ADDRESS" length="45" />
+		</property>
+		<property name="patientEmail" type="string">
+			<column name="PATIENT_EMAIL" length="45" />
+		</property>
+		<many-to-one name="patient" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Patient"
+			fetch="select">
+			<column name="PATIENT_ID" />
+		</many-to-one>
+	</class>
+
+	<sql-query name="fetchAppoinmentSupportiveDataByCriteria">
+		<return alias="asd" class="com.capsurfit.smartchannel.app.common.domain.AppointmentSupportiveData" />
+        <![CDATA[
+            select 
+                asd.*
+              from smartchannel.APPOINTMENT_SUPPORT asd
+			  where
+                (asd.CLINIC_ID = :clinicId)
+                and (asd.APPOINTMENT_NO = :appointmentNo)
+        ]]>
+	</sql-query>
+</hibernate-mapping>

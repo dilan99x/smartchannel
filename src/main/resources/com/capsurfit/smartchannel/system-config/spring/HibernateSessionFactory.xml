@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/smartchannel</prop>
+                <prop key="hibernate.connection.username">smartchannel_user</prop>
+                <prop key="hibernate.connection.password">Cap#SurF@627Db</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="format_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+            </props>
+        </property>
+
+        <property name="mappingResources">
+            <list>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/channelcentermanagement/hibernate/ChannelCenter.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/channelcentermanagement/hibernate/ChannelCenterDoctor.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/contactmanagement/hibernate/Contact.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/contactmanagement/hibernate/DoctorContact.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/Appoinment.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/AppoinmentState.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/Clinic.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/ClinicType.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/ClinicProperty.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/ClinicProportyType.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/UnitType.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/medicalcheckupmanagement/hibernate/CheckupType.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/medicalcheckupmanagement/hibernate/MedicalCheckup.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/doctormanagement/hibernate/Doctor.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/doctormanagement/hibernate/GovernmentHospital.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/doctormanagement/hibernate/Speciality.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/configuration/miscellaneousmanagement/hibernate/Offer.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/appservice/channelservicemanagement/hibernate/Patient.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/common/hibernate/CommonLookup.hbm.xml
+                </value>
+                <value>
+                    com/capsurfit/smartchannel/app-config/common/hibernate/AppointmentSupportiveData.hbm.xml
+                </value>
+            </list>
+        </property>
+    </bean>
+</beans>
+

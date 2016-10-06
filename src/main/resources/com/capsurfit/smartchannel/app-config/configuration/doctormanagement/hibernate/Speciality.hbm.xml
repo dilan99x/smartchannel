@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class catalog="smartclinic" name="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Speciality" table="SPECIALITY">
+		<id name="specialityId" type="java.lang.Integer">
+			<column name="SPECIALITY_ID" />
+			<generator class="identity" />
+		</id>
+		<property name="specialityCode" type="string">
+			<column length="50" name="SPECIALITY_CODE" />
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="isActive" type="java.lang.Byte">
+			<column name="IS_ACTIVE" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column length="19" name="CREATED_DATETIME" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column length="19" name="MODIFIED_DATETIME" />
+		</property>
+		<set inverse="true" name="doctors">
+			<key>
+				<column name="SPECIALITY_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" />
+		</set>
+	</class>
+
+	<sql-query name="findSpecialityByCriteria">
+		<return alias="sp" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Speciality" />
+        <![CDATA[
+             select
+                sp.*
+              from smartclinic.SPECIALITY sp
+        ]]>
+	</sql-query>
+</hibernate-mapping>

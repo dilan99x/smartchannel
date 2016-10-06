@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="doctorSupport" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.web.DoctorSupport">
+		<property name="doctorManager" ref="doctorManager" />
+	</bean>
+
+	<bean id="doctorManager" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.service.DoctorManagerImpl">
+		<property name="doctorDao" ref="doctorDao" />
+		<property name="doctorContactDao" ref="doctorContactDao" />
+	</bean>
+
+	<bean id="doctorDao" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.dao.DoctorDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="doctorContactDao" class="com.capsurfit.smartchannel.app.configuration.contactmanagement.dao.DoctorContactDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

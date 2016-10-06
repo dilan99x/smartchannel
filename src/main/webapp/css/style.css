@@ -1,0 +1,134 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#main {
+	
+}
+
+/* head_slice */
+#head_slice {
+	width: 100%;
+	height: 25px;
+	float: left;
+	background: #ededed;
+}
+
+#hs_bar {
+	width: 1000px;
+	height: 25px;
+	margin: 0 auto;
+	background: #33CCCC;
+}
+/* End head_slice */
+
+/*header */
+#header {
+	width: 100%;
+	height: 95px;
+	float: left;
+	background: #ededed;
+}
+
+#cs_save_data_grid {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#h_bar {
+	width: 1000px;
+	height: 100px;
+	margin: 0 auto;
+	background: #33CCCC;
+}
+/* End header */
+
+/* menu */
+#mainmenu {
+	width: 100%;
+	height: 50px;
+	float: left;
+	background: #FF0066;
+}
+
+#menu_bar {
+	width: 1000px;
+	height: 50px;
+	margin: 0 auto;
+	background: green;
+}
+
+/* end of menu */
+
+/* slide */
+#slider {
+	width: 100%;
+	height: 309px;
+	float: left;
+	background-color: #F63;
+}
+
+#slide_bar {
+	width: 1000px;
+	height: 309px;
+	margin: 0 auto;
+	background-color: #339;
+}
+/* End of slide */
+
+/* content */
+#content {
+	width: 100%;
+	height: auto;
+	float: left;
+	background: #ededed;
+}
+
+#content_bar {
+	width: 1000px;
+	height: 800px;
+	margin: 0 auto;
+	background: #339966;
+}
+
+/* left_bar */
+#left_bar {
+	width: 260px;
+	height: 800px;
+	float: left;
+	background: #bdbdbd;
+}
+/* End_leftbar */
+
+/* right_bar */
+#right_bar {
+	width: 740px;
+	height: 800px;
+	float: left;
+	/*background:#6F3;*/
+	background: white;
+}
+/* End_right_bar */
+
+/* end of content */
+
+/* footer */
+#footer {
+	width: 100%;
+	height: 100px;
+	float: left;
+	background: #ededed;
+}
+
+#footer_bar {
+	width: 1000px;
+	height: 100px;
+	margin: 0 auto;
+	background-color: #d7d7d7;
+}
+
+/* End of footer */

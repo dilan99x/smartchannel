@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="patientInfor" namespace="/" extends="struts-default">
+
+		<action name="patientInforSupport!*" class="patientInforSupport" method="{1}">
+			<result name="success">PaymentGateway.jsp</result>
+			<result name="input">PatientInformation.jsp</result>
+		</action>
+
+		<action name="loadPatientsInfor" class="patientInforSupport" method="loadPatientsInfor">
+			<result name="success">PatientInformation.jsp</result>
+			<result name="input" type="redirect">fetchAppointments</result>
+		</action>
+
+	</package>
+</struts>
+

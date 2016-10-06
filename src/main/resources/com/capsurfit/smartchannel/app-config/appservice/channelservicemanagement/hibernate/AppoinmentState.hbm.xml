@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class catalog="smartchannel" name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.AppoinmentState"
+		table="APPOINMENT_STATE">
+		<id name="appoinmentStateId" type="java.lang.Integer">
+			<column name="APPOINMENT_STATE_ID" />
+			<generator class="identity" />
+		</id>
+		<many-to-one class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" fetch="select"
+			name="appoinment">
+			<column name="APPOINMENT_ID" not-null="true" />
+		</many-to-one>
+		<property name="isChanged" type="java.lang.Byte">
+			<column name="IS_CHANGED" />
+		</property>
+		<property name="isCancelled" type="java.lang.Byte">
+			<column name="IS_CANCELLED" />
+		</property>
+		<property name="changedDatetime" type="timestamp">
+			<column length="19" name="CHANGED_DATETIME" />
+		</property>
+		<property name="effectiveDatetime" type="timestamp">
+			<column length="19" name="EFFECTIVE_DATETIME" />
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column length="19" name="CREATED_DATETIME" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column length="19" name="MODIFIED_DATETIME" />
+		</property>
+	</class>
+</hibernate-mapping>

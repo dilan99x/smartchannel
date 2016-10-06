@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class catalog="smartchannel" name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" table="APPOINMENT">
+		<id name="appoinmentId" type="java.lang.Integer">
+			<column name="APPOINMENT_ID" />
+			<generator class="identity" />
+		</id>
+		<many-to-one class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Patient" fetch="select"
+			name="patient">
+			<column name="PATIENT_ID"/>
+		</many-to-one>
+		<many-to-one class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" fetch="select"
+			name="clinic">
+			<column name="CLINIC_ID"/>
+		</many-to-one>
+		<property name="appoinmentNumber" type="java.lang.Integer">
+			<column name="APPOINMENT_NUMBER" />
+		</property>
+		<property name="appoinmentDate" type="timestamp">
+			<column length="19" name="APPOINMENT_DATE" />
+		</property>
+		<property name="appoinmentTime" type="string">
+			<column length="19" name="APPOINMENT_TIME" />
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="totalAppoinmentFee" type="java.lang.Double">
+			<column name="TOTAL_APPOINMENT_FEE" precision="22" scale="0" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column length="19" name="CREATED_DATETIME" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column name="MODIFIED_DATETIME" />
+		</property>
+		<property name="isAvailable" type="string">
+			<column name="IS_AVAILABLE" />
+		</property>
+		<set inverse="true" name="appoinmentStates">
+			<key>
+				<column name="APPOINMENT_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.AppoinmentState" />
+		</set>	
+	</class>
+
+	<sql-query name="fetchSelectedAppoinments">
+		<return alias="ap" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" />
+        <![CDATA[
+            select 
+                app.*,
+                null as CHANNEL_CENTER_NAME,
+				null as ADDRESS,
+				null as START_TIME
+              from smartchannel.APPOINMENT app
+			  where
+                (app.CLINIC_ID = :clinicId)
+        ]]>
+	</sql-query>
+	
+	<sql-query name="fetchAppointmentByCriteria">
+		<return alias="ap" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" />
+        <![CDATA[
+            select 
+                app.*,
+                null as CHANNEL_CENTER_NAME,
+				null as ADDRESS,
+				null as START_TIME
+              from smartchannel.APPOINMENT app
+			  where
+                (app.CLINIC_ID = :clinicId)
+                and (app.CLINIC_ID = :appointmentNumber)
+        ]]>
+	</sql-query>
+</hibernate-mapping>

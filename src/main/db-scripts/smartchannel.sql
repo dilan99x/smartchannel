@@ -1,0 +1,561 @@
+
+-- Host: 127.0.0.1    Database: smartchannel
+-- ------------------------------------------------------
+
+--
+-- Table structure for table `appoinment`
+--
+
+DROP TABLE IF EXISTS `appoinment`;
+
+CREATE TABLE `appoinment` (
+  `APPOINMENT_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CLINIC_ID` int(10) DEFAULT NULL,
+  `PATIENT_ID` int(10) DEFAULT NULL,
+  `APPOINMENT_NUMBER` int(10) DEFAULT NULL,
+  `APPOINMENT_DATE` timestamp NULL DEFAULT NULL,
+  `APPOINMENT_TIME` varchar(45) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `TOTAL_APPOINMENT_FEE` double DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  `IS_AVAILABLE` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`APPOINMENT_ID`),
+  KEY `FKAPPOINMENT594307` (`CLINIC_ID`),
+  KEY `FKAPPOINMENT75569` (`PATIENT_ID`),
+  CONSTRAINT `FKAPPOINMENT594307` FOREIGN KEY (`CLINIC_ID`) REFERENCES `clinic` (`CLINIC_ID`),
+  CONSTRAINT `FKAPPOINMENT75569` FOREIGN KEY (`PATIENT_ID`) REFERENCES `patient` (`PATIENT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appoinment`
+--
+
+LOCK TABLES `appoinment` WRITE;
+
+INSERT INTO `appoinment` VALUES (1,4,1,1,'2014-03-15 13:00:00','5.30','',700,NULL,NULL,'Y'),(2,4,2,2,'2014-03-15 13:00:00','5.45',NULL,700,NULL,NULL,'Y'),(3,4,3,3,'2014-03-15 13:00:00','6.00',NULL,700,NULL,NULL,'Y'),(5,13,NULL,7,'2014-03-15 13:00:00','12.30 PM',NULL,NULL,NULL,'2014-09-11 11:55:42','N'),(6,13,NULL,8,'2014-03-15 13:00:00','12.45 PM',NULL,NULL,NULL,'2014-09-11 12:45:44','N'),(7,13,NULL,9,'2014-03-15 13:00:00','13.00 PM',NULL,NULL,NULL,'2014-09-12 07:18:03','N');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appoinment_state`
+--
+
+DROP TABLE IF EXISTS `appoinment_state`;
+
+CREATE TABLE `appoinment_state` (
+  `APPOINMENT_STATE_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `APPOINMENT_ID` int(10) NOT NULL,
+  `IS_CHANGED` tinyint(4) DEFAULT NULL,
+  `IS_CANCELLED` tinyint(4) DEFAULT NULL,
+  `CHANGED_DATETIME` timestamp NULL DEFAULT NULL,
+  `EFFECTIVE_DATETIME` timestamp NULL DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`APPOINMENT_STATE_ID`),
+  KEY `FKAPPOINMENT473216` (`APPOINMENT_ID`),
+  CONSTRAINT `FKAPPOINMENT473216` FOREIGN KEY (`APPOINMENT_ID`) REFERENCES `appoinment` (`APPOINMENT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `appoinment_state` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `appointment_support`
+--
+
+DROP TABLE IF EXISTS `appointment_support`;
+
+CREATE TABLE `appointment_support` (
+  `SUPPORT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `CLINIC_ID` int(11) DEFAULT NULL,
+  `APPOINTMENT_NO` int(11) DEFAULT NULL,
+  `PATIENT_ID` int(11) DEFAULT NULL,
+  `APPOINTMENT_TIME` varchar(10) DEFAULT NULL,
+  `APPOINTMENT_DATE` timestamp NULL DEFAULT NULL,
+  `PATIENT_FIRST_NAME` varchar(45) DEFAULT NULL,
+  `PATIENT_LAST_NAME` varchar(45) DEFAULT NULL,
+  `PATIENT_NIC` varchar(45) DEFAULT NULL,
+  `PATIENT_GENDER` varchar(45) DEFAULT NULL,
+  `PATIENT_MOBILE_NUMBER` varchar(45) DEFAULT NULL,
+  `PATIENT_ADDRESS` varchar(45) DEFAULT NULL,
+  `PATIENT_EMAIL` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`SUPPORT_ID`),
+  KEY `fk_PATIENT_idx` (`PATIENT_ID`),
+  CONSTRAINT `fk_PATIENT` FOREIGN KEY (`PATIENT_ID`) REFERENCES `patient` (`PATIENT_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+
+LOCK TABLES `appointment_support` WRITE;
+
+INSERT INTO `appointment_support` VALUES (1,13,2,NULL,'11.15 AM','2014-03-15 13:00:00','lavanya','jithangi','886467437V','Female','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(2,13,3,NULL,'11.30 AM','2014-03-15 13:00:00','RERER','RERER','886467437V','Female','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(3,13,4,NULL,'11.45 AM','2014-03-15 13:00:00','RERER','RERER','886467437V','Female','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(4,13,6,NULL,'12.15 PM','2014-03-15 13:00:00','lavanya','jithangi','886467437V','Female','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(16,13,7,NULL,'12.30 PM','2014-03-15 13:00:00','dilan','anushka','886467437V','Male','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(17,13,8,NULL,'12.45 PM','2014-03-15 13:00:00','dilan','jithangi','886467437V','Male','0776722451','Punchi Boralla, Colombo 07','lava@gmail.com'),(18,13,9,NULL,'13.00 PM','2014-03-15 13:00:00','Upul','Doluweera','886467437V','Male','0776722451','Battaramulla','upul@gmail.com');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `channel_center`
+--
+
+DROP TABLE IF EXISTS `channel_center`;
+
+CREATE TABLE `channel_center` (
+  `CHANNEL_CENTER_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CHANNEL_CENTER_NAME` varchar(45) DEFAULT NULL,
+  `ADDRESS` varchar(255) DEFAULT NULL,
+  `RESIDENTIAL_CITY` varchar(255) DEFAULT NULL COMMENT 'This should be the location city of the Channel center. Ex: Narahenpita is the RESIDENTIAL_CITY for Asiri Hospital pvt',
+  `MAIN_CITY` varchar(255) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `IMAGE_SOURCE` varchar(255) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CHANNEL_CENTER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+
+
+LOCK TABLES `channel_center` WRITE;
+
+INSERT INTO `channel_center` VALUES (29,'lavanya Jithangi','Colombo','Punchi Borella','Colombo','jhjdhfjddh',1,NULL,NULL,NULL),(30,'Dilan Lavanya','Colombo','Boralesgamuwa','Colombo','Our residence is here',1,NULL,NULL,NULL),(42,'Cey Med','Kohuwala','Kohuwala','Colombo','QQQQQ',1,NULL,NULL,NULL),(43,'TEST HOSPITAL','bbbb','ddddd','rrrr','dedede',1,NULL,NULL,NULL),(45,'MDK Hospital','Wawala Rd, Horana','Horana','Horana','24 hours servie',1,NULL,NULL,NULL);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `channel_center_doctor`
+--
+
+DROP TABLE IF EXISTS `channel_center_doctor`;
+
+CREATE TABLE `channel_center_doctor` (
+  `CHANNEL_CENTER_ID` int(10) NOT NULL,
+  `DOCTOR_ID` int(10) NOT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CHANNEL_CENTER_ID`,`DOCTOR_ID`),
+  KEY `FKCHANNEL_CE258915` (`CHANNEL_CENTER_ID`),
+  KEY `FKCHANNEL_CE10462` (`DOCTOR_ID`),
+  CONSTRAINT `FKCHANNEL_CE10462` FOREIGN KEY (`DOCTOR_ID`) REFERENCES `doctor` (`DOCTOR_ID`),
+  CONSTRAINT `FKCHANNEL_CE258915` FOREIGN KEY (`CHANNEL_CENTER_ID`) REFERENCES `channel_center` (`CHANNEL_CENTER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `channel_center_doctor` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `checkup_slip`
+--
+
+DROP TABLE IF EXISTS `checkup_slip`;
+
+CREATE TABLE `checkup_slip` (
+  `CHECKUP_ID` int(10) NOT NULL,
+  `CHANNEL_CENTER_ID` int(10) NOT NULL,
+  PRIMARY KEY (`CHECKUP_ID`,`CHANNEL_CENTER_ID`),
+  KEY `FKCHECKUP_SL926452` (`CHECKUP_ID`),
+  KEY `FKCHECKUP_SL679832` (`CHANNEL_CENTER_ID`),
+  CONSTRAINT `FKCHECKUP_SL679832` FOREIGN KEY (`CHANNEL_CENTER_ID`) REFERENCES `channel_center` (`CHANNEL_CENTER_ID`),
+  CONSTRAINT `FKCHECKUP_SL926452` FOREIGN KEY (`CHECKUP_ID`) REFERENCES `medical_checkup` (`CHECKUP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `checkup_slip` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `checkup_type`
+--
+
+DROP TABLE IF EXISTS `checkup_type`;
+
+CREATE TABLE `checkup_type` (
+  `CHECKUP_TYPE_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CHECKUP_TYPE_CODE` varchar(255) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `DATE_ADDED` timestamp NULL DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CHECKUP_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `checkup_type` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinic`
+--
+
+DROP TABLE IF EXISTS `clinic`;
+
+CREATE TABLE `clinic` (
+  `CLINIC_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CLINIC_TYPE_ID` int(10) DEFAULT NULL,
+  `DOCTOR_ID` int(10) DEFAULT NULL,
+  `CHANNEL_CENTER_ID` int(10) DEFAULT NULL,
+  `DATE_FROM` timestamp NULL DEFAULT NULL,
+  `START_TIME` varchar(19) DEFAULT NULL,
+  `END_TIME` varchar(19) DEFAULT NULL,
+  `IS_ACTIVE` varchar(4) DEFAULT NULL,
+  `CLINICAL_FEE` double DEFAULT NULL,
+  `CONSULTATION_FEE` double DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  `CLINIC_CODE` varchar(45) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `MAX_APPOINTMENTS` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CLINIC_ID`),
+  KEY `fk_CLINIC_1_idx` (`CLINIC_TYPE_ID`),
+  KEY `fk_CLINIC_2_idx` (`DOCTOR_ID`),
+  KEY `fk_CLINIC_3_idx` (`CHANNEL_CENTER_ID`),
+  CONSTRAINT `fk_CLINIC_1` FOREIGN KEY (`CLINIC_TYPE_ID`) REFERENCES `clinic_type` (`CLINIC_TYPE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CLINIC_2` FOREIGN KEY (`DOCTOR_ID`) REFERENCES `doctor` (`DOCTOR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CLINIC_3` FOREIGN KEY (`CHANNEL_CENTER_ID`) REFERENCES `channel_center` (`CHANNEL_CENTER_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `clinic` WRITE;
+INSERT INTO `clinic` VALUES (4,1,9,29,'2014-03-15 13:00:00','5:minutes','8:minutes','Y',300,1000,NULL,NULL,'Sunday evening clinic','Mothers only',10),(5,2,1,43,'2014-02-08 13:00:00','5:30 PM','8:30 PM','Y',300,500,NULL,NULL,'Test','test',15),(6,4,1,30,'2014-02-08 23:30:00','11:00 AM ','2:00 PM','Y',300,500,NULL,NULL,'test clinic2','tested.',12),(7,1,1,42,'2014-02-08 13:00:00','8:00 AM','11:00 AM','Y',300,500,NULL,NULL,'test clinic3','tested 3 times',20),(13,4,12,42,'2014-03-15 13:00:00','11:00 AM','2:00 PM','Y',300,1000,NULL,NULL,'Sunday evening clinic','',15),(14,4,12,30,'2014-03-15 13:00:00','10:00 AM','1:00 PM','Y',300,1000,NULL,NULL,'DL Mother clinic','kldfjdk',12);
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinic_property`
+--
+
+DROP TABLE IF EXISTS `clinic_property`;
+
+CREATE TABLE `clinic_property` (
+  `CLINIC_PROPERTY_ID` int(11) NOT NULL,
+  `CLINIC_PROPERTY_TYPE_ID` int(11) DEFAULT NULL,
+  `CLINIC_ID` int(11) DEFAULT NULL,
+  `START_DATE` timestamp NULL DEFAULT NULL,
+  `END_DATE` timestamp NULL DEFAULT NULL,
+  `UNIT_TYPE_ID` int(11) DEFAULT NULL,
+  `UNIT_QUANTITY` int(11) DEFAULT NULL,
+  `IS_ACTIVE` varchar(2) DEFAULT NULL,
+  PRIMARY KEY (`CLINIC_PROPERTY_ID`),
+  KEY `fk_CLINIC_PROPERTY_1_idx` (`CLINIC_PROPERTY_TYPE_ID`),
+  KEY `fk_CLINIC_PROPERTY_2_idx` (`UNIT_TYPE_ID`),
+  KEY `fk_CLINIC_PROPERTY_3_idx` (`CLINIC_ID`),
+  CONSTRAINT `fk_CLINIC_PROPERTY_1` FOREIGN KEY (`CLINIC_PROPERTY_TYPE_ID`) REFERENCES `clinic_proporty_type` (`CLINIC_PROPORTY_TYPE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CLINIC_PROPERTY_2` FOREIGN KEY (`UNIT_TYPE_ID`) REFERENCES `unit_type` (`UNIT_TYPE_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CLINIC_PROPERTY_3` FOREIGN KEY (`CLINIC_ID`) REFERENCES `clinic` (`CLINIC_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `clinic_property` WRITE;
+INSERT INTO `clinic_property` VALUES (1,1,4,NULL,NULL,1,15,'Y'),(2,1,13,NULL,NULL,1,15,'Y'),(3,1,14,NULL,NULL,1,15,'Y');
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinic_proporty_type`
+--
+
+DROP TABLE IF EXISTS `clinic_proporty_type`;
+
+CREATE TABLE `clinic_proporty_type` (
+  `CLINIC_PROPORTY_TYPE_ID` int(11) NOT NULL,
+  `CLINIC_PROPORTY_TYPE_CODE` varchar(45) DEFAULT NULL,
+  `DESCRIPTION` text,
+  PRIMARY KEY (`CLINIC_PROPORTY_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+LOCK TABLES `clinic_proporty_type` WRITE;
+
+INSERT INTO `clinic_proporty_type` VALUES (1,'APPOINTMENT_DURATION','');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clinic_type`
+--
+
+DROP TABLE IF EXISTS `clinic_type`;
+
+CREATE TABLE `clinic_type` (
+  `CLINIC_TYPE_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CLINIC_TYPE_CODE` varchar(255) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CLINIC_TYPE_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+
+LOCK TABLES `clinic_type` WRITE;
+
+INSERT INTO `clinic_type` VALUES (1,'Chest Clinic','',1,NULL,NULL),(2,'ENT Clinic',NULL,1,NULL,NULL),(3,'Skin Clinic',NULL,1,NULL,NULL),(4,'Meternotory Clinic',NULL,1,NULL,NULL);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+
+CREATE TABLE `contact` (
+  `CONTACT_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CHANNEL_CENTER_ID` int(10) DEFAULT NULL,
+  `ENTITY_PK_CODE` varchar(255) DEFAULT NULL,
+  `CONTACT_TYPE` varchar(45) DEFAULT NULL,
+  `CONTACT_NUMBER` int(20) DEFAULT NULL,
+  `CONTACT_NUMBER_RESID` int(11) DEFAULT NULL,
+  `FAX` int(11) DEFAULT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  `WEB` varchar(50) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CONTACT_ID`),
+  KEY `FKCHANNEL_CE887599` (`CHANNEL_CENTER_ID`),
+  CONSTRAINT `FKCHANNEL_CE218735` FOREIGN KEY (`CHANNEL_CENTER_ID`) REFERENCES `channel_center` (`CHANNEL_CENTER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+
+LOCK TABLES `contact` WRITE;
+
+INSERT INTO `contact` VALUES (2,29,'CHANNEL_CENTER',NULL,7667,NULL,777,'dilan@gmail.com','www.wle.lk',NULL,NULL,NULL),(3,30,'CHANNEL_CENTER',NULL,3456,NULL,457,'dilan@gmail.com','www.wle.lk',NULL,NULL,NULL),(19,42,'CHANNEL_CENTER',NULL,777,NULL,457,'dilee86@gmail.com','www.wle.lk',NULL,NULL,NULL),(21,43,'CHANNEL_CENTER',NULL,3456,NULL,4444,'dilan@gmail.com','www.lava.com',NULL,NULL,NULL),(23,45,'CHANNEL_CENTER',NULL,345,NULL,345,'info@mdk.lk','www.mdk.lk',NULL,NULL,NULL);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `doctor`
+--
+
+DROP TABLE IF EXISTS `doctor`;
+
+CREATE TABLE `doctor` (
+  `DOCTOR_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `FIRST_NAME` varchar(45) DEFAULT NULL,
+  `LAST_NAME` varchar(45) DEFAULT NULL,
+  `NAME_WITH_INNITIALS` varchar(45) DEFAULT NULL,
+  `REGISTRATION_NUMBER` varchar(30) DEFAULT NULL,
+  `NIC` varchar(15) DEFAULT NULL,
+  `AGE` int(10) DEFAULT NULL,
+  `ADDRESS` varchar(60) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  `SPECIALITY_ID` int(10) DEFAULT NULL,
+  PRIMARY KEY (`DOCTOR_ID`),
+  KEY `FKDOCTOR259162` (`SPECIALITY_ID`),
+  CONSTRAINT `FKDOCTOR259162` FOREIGN KEY (`SPECIALITY_ID`) REFERENCES `speciality` (`SPECIALITY_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `doctor` WRITE;
+
+INSERT INTO `doctor` VALUES (1,'Ranjith','Pieris','K.P.M R. Pieris','4011','594567345V',55,'Kalubowila X',1,'Specialist',NULL,NULL,NULL),(2,'Wasantha','MalalaSekara','W.L.W Malalasekara','3435','657894756V',44,'Moratuwa',1,'Physician',NULL,'2014-03-15 13:00:00',2),(9,'Ranjith','Baranage','W.R.R. Baranage','3545','455768569V',69,'Horana',1,'Physician',NULL,'2014-03-15 13:00:00',3),(12,'Thawarani','Kandasambi','S.K.T Kandasambi','4090','594677378V',55,'Homagama',1,'Specialist Vp',NULL,'2014-03-15 13:00:00',1);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `doctor_contact`
+--
+
+DROP TABLE IF EXISTS `doctor_contact`;
+
+CREATE TABLE `doctor_contact` (
+  `DOCTOR_CONTACT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `DOCTOR_ID` int(11) DEFAULT NULL,
+  `CONTACT_TYPE` varchar(45) DEFAULT NULL,
+  `MOBILE` varchar(45) DEFAULT NULL,
+  `RESIDENCE` varchar(45) DEFAULT NULL,
+  `FAX` varchar(45) DEFAULT NULL,
+  `EMAIL` varchar(70) DEFAULT NULL,
+  `WEB` varchar(70) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`DOCTOR_CONTACT_ID`),
+  KEY `fk_DOCTOR_CONTACT_1_idx` (`DOCTOR_ID`),
+  CONSTRAINT `fk_DOCTOR_CONTACT_1` FOREIGN KEY (`DOCTOR_ID`) REFERENCES `doctor` (`DOCTOR_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `doctor_contact` WRITE;
+
+INSERT INTO `doctor_contact` VALUES (5,9,NULL,'077 4565690','0112 567689',NULL,'ranjith@gmail.com','www.mdk.lk',NULL,NULL,NULL),(6,2,'DOCTOR','071 2322323','0112 223657',NULL,'wasantha@gmail.com','www.wmal.lk',NULL,NULL,NULL),(8,1,NULL,'0777 345345','0112 343434',NULL,'ranjith@gmail.com','www.ranjith.creative.com',NULL,NULL,NULL),(12,12,NULL,'077 4565691','0112 666666',NULL,'kthawarani@gmail.com','www.wle.lk',NULL,NULL,NULL);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `government_hospital`
+--
+
+DROP TABLE IF EXISTS `government_hospital`;
+
+CREATE TABLE `government_hospital` (
+  `HOSPITAL_ID` int(10) NOT NULL,
+  `DOCTOR_ID` int(10) NOT NULL,
+  `HOSPITAL_NAME` varchar(255) DEFAULT NULL,
+  `CITY` varchar(255) DEFAULT NULL,
+  `JOINED_DATETIME` timestamp NULL DEFAULT NULL,
+  `RESIGNED_DATETIME` varchar(255) DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `DESIGNATION` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`HOSPITAL_ID`),
+  KEY `FKGOVERNMENT592757` (`DOCTOR_ID`),
+  CONSTRAINT `FKGOVERNMENT592757` FOREIGN KEY (`DOCTOR_ID`) REFERENCES `doctor` (`DOCTOR_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `government_hospital` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `medical_checkup`
+--
+
+DROP TABLE IF EXISTS `medical_checkup`;
+
+CREATE TABLE `medical_checkup` (
+  `CHECKUP_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `CHECKUP_DATETIME` timestamp NULL DEFAULT NULL,
+  `TOTAL_PRICE` double DEFAULT NULL COMMENT 'This is the total price including Hospital price + deductions given + additions added',
+  `CHECKUP_TYPE_ID` int(10) NOT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`CHECKUP_ID`),
+  KEY `FKMEDICAL_CH876193` (`CHECKUP_TYPE_ID`),
+  CONSTRAINT `FKMEDICAL_CH876193` FOREIGN KEY (`CHECKUP_TYPE_ID`) REFERENCES `checkup_type` (`CHECKUP_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `medical_checkup` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `offer`
+--
+
+DROP TABLE IF EXISTS `offer`;
+
+CREATE TABLE `offer` (
+  `OFFER_ID` int(10) NOT NULL,
+  `CHANNEL_CENTER_ID` int(10) NOT NULL,
+  `DOCTOR_ID` int(10) NOT NULL,
+  `PATIENT_ID` int(10) NOT NULL,
+  `ADDITION_APPLIED` double DEFAULT NULL,
+  `DIDUCTION_GIVEN` double DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  `IS_ACTIVE` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`OFFER_ID`),
+  KEY `FKOFFER739455` (`CHANNEL_CENTER_ID`,`DOCTOR_ID`),
+  KEY `FKOFFER405763` (`PATIENT_ID`),
+  CONSTRAINT `FKOFFER405763` FOREIGN KEY (`PATIENT_ID`) REFERENCES `patient` (`PATIENT_ID`),
+  CONSTRAINT `FKOFFER739455` FOREIGN KEY (`CHANNEL_CENTER_ID`, `DOCTOR_ID`) REFERENCES `channel_center_doctor` (`CHANNEL_CENTER_ID`, `DOCTOR_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `offer` WRITE;
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patient`
+--
+
+DROP TABLE IF EXISTS `patient`;
+
+CREATE TABLE `patient` (
+  `PATIENT_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `PATIENT_FIRST_NAME` varchar(255) DEFAULT NULL,
+  `PATIENT_LAST_NAME` varchar(255) DEFAULT NULL,
+  `PATIENT_AGE` int(10) DEFAULT NULL,
+  `PATIENT_DESCRIPTION` varchar(255) DEFAULT NULL,
+  `PATIENT_MOBILE_NUMBER` varchar(45) DEFAULT NULL,
+  `PATIENT_EMAIL` varchar(45) DEFAULT NULL,
+  `PATIENT_CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `PATIENT_MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  `PATIENT_GENDER` varchar(10) DEFAULT NULL,
+  `PATIENT_ADDRESS` varchar(45) DEFAULT NULL,
+  `PATIENT_NIC` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`PATIENT_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `patient` WRITE;
+INSERT INTO `patient` VALUES (1,NULL,NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),(2,NULL,NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),(3,NULL,NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),(4,NULL,NULL,NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL),(5,'dilan','anushka',NULL,NULL,'0712456546','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','866467437V'),(6,'dilan','anushka',NULL,NULL,'0712456546','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','866467437V'),(8,'dilan','anushka',NULL,NULL,'0712456546','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','886467437V'),(9,'lavanya','jithangi',NULL,NULL,'0776722451','lava@gmail.com',NULL,NULL,'Female','Punchi Boralla, Colombo 07','886467437V'),(10,'dilan','anushka',NULL,NULL,'0712456546','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','886467437V'),(12,'dilan','anushka',NULL,NULL,'0712456546','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','866467437V'),(13,'dilan','anushka',NULL,NULL,'0776722451','lava@gmail.com',NULL,NULL,'Male','Punchi Boralla, Colombo 07','886467437V'),(15,'Upul','Doluweera',NULL,NULL,'0776722451','upul@gmail.com',NULL,NULL,'Male','Battaramulla','886467437V');
+UNLOCK TABLES;
+
+--
+-- Table structure for table `speciality`
+--
+
+DROP TABLE IF EXISTS `speciality`;
+
+CREATE TABLE `speciality` (
+  `SPECIALITY_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `SPECIALITY_CODE` varchar(50) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `IS_ACTIVE` varchar(4) DEFAULT NULL,
+  `CREATED_DATETIME` timestamp NULL DEFAULT NULL,
+  `MODIFIED_DATETIME` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`SPECIALITY_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `speciality` WRITE;
+INSERT INTO `speciality` VALUES (1,'VOG','Women specific','Y','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'ENT','Ear nose and throat related','Y','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,'VP','Physician relates to general ailments','Y','0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,'Dental','Dental ailments','Y','0000-00-00 00:00:00','0000-00-00 00:00:00');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `unit_type`
+--
+
+DROP TABLE IF EXISTS `unit_type`;
+
+CREATE TABLE `unit_type` (
+  `UNIT_TYPE_ID` int(11) NOT NULL,
+  `UNIT_TYPE_CODE` varchar(15) DEFAULT NULL,
+  `DESCRIPTION` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`UNIT_TYPE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `unit_type` WRITE;
+
+INSERT INTO `unit_type` VALUES (1,'MINUTES',''),(2,'HOURS',NULL),(3,'WEEKS',NULL),(4,'MONTHS',NULL);
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_roles`
+--
+
+DROP TABLE IF EXISTS `user_roles`;
+
+CREATE TABLE `user_roles` (
+  `USER_ROLE_ID` int(11) NOT NULL,
+  `USER_ID` int(11) DEFAULT NULL,
+  `AUTHORITY` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`USER_ROLE_ID`),
+  KEY `fk_user_roles_1_idx` (`USER_ID`),
+  CONSTRAINT `fk_user_roles_1` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`USER_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_roles` WRITE;
+
+INSERT INTO `user_roles` VALUES (1,100,'ROLE_USER'),(2,200,'ROLE_ADMIN'),(3,300,'ROLE_TEST_USER');
+
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `USER_ID` int(11) NOT NULL,
+  `USERNAME` varchar(45) DEFAULT NULL,
+  `PASSWORD` varchar(45) DEFAULT NULL,
+  `ENABLED` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `users` WRITE;
+
+INSERT INTO `users` VALUES (100,'lavanya','1234567','true'),(200,'dilan','1234567','true'),(233,'PK',NULL,NULL),(300,'test','123','true');
+
+UNLOCK TABLES;

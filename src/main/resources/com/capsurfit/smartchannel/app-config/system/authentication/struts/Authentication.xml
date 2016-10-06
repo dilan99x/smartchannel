@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="authentication" namespace="/" extends="struts-default">
+		<action name="loginfailed">
+			<result>error.jsp</result>
+		</action>
+
+		<action name="logout">
+			<result>login.jsp</result>
+		</action>
+
+		<action name="login">
+			<result>login.jsp</result>
+		</action>
+
+		<action name="welcome">
+			<result>home.jsp</result>
+		</action>
+
+		<action name="denied">
+			<result>denied.jsp</result>
+		</action>
+		
+		<action name="403">
+			<result>403.jsp</result>
+		</action>
+	</package>
+</struts>
+
+

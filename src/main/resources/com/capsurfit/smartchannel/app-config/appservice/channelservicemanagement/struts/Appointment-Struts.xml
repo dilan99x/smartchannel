@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="appointment" namespace="/" extends="struts-default">
+		<action name="makeAppointment">
+			<result name="success" type="redirect">fetchAppointments</result>
+		</action>
+
+		<action name="fetchAppointments" class="appointmentSupport" method="fetchAppointments">
+			<result name="success">Appointment.jsp</result>
+			<result name="input">Appointment.jsp</result>
+		</action>
+
+		<!-- <action name="appointmentSupport!*" class="appointmentSupport" method="{1}">
+			<result name="success" type="redirect">fetchAppointments</result>
+			<result name="input" type="redirect">fetchAppointments</result>
+		</action>  -->
+
+		<action name="fetchSelectedAppoinment" class="appointmentSupport" method="fetchSelectedAppoinment">
+			<result name="success">Doctor.jsp</result>
+			<result name="input">Doctor.jsp</result>
+		</action>
+		
+		<action name="searchDoctorOnAnotherChannelCenter" class="appointmentSupport" method="searchDoctorOnAnotherChannelCenter">
+			<result name="success">Doctor.jsp</result>
+			<result name="input">Doctor.jsp</result>
+		</action> 
+		
+	</package>
+	 
+	<package name="majax33" extends="struts-default,json-default" namespace="/ajax">       
+		<action name="searchDoctorDifferentVenue" class="appointmentSupport" method="searchDoctorDifferentVenue">
+			<result type="json"></result>
+		</action>
+	</package>
+</struts>

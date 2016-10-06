@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" table="DOCTOR" catalog="smartclinic">
+		<id name="doctorId" type="java.lang.Integer">
+			<column name="DOCTOR_ID" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="speciality" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Speciality"
+			fetch="select">
+			<column name="SPECIALITY_ID" />
+		</many-to-one>
+		<property name="firstName" type="string">
+			<column name="FIRST_NAME" length="45" />
+		</property>
+		<property name="lastName" type="string">
+			<column name="LAST_NAME" length="45" />
+		</property>
+		<property name="nameWithInnitials" type="string">
+			<column name="NAME_WITH_INNITIALS" length="45" />
+		</property>
+		<property name="registrationNumber" type="string">
+			<column name="REGISTRATION_NUMBER" length="30" />
+		</property>
+		<property name="nic" type="string">
+			<column name="NIC" length="15" />
+		</property>
+		<property name="age" type="java.lang.Integer">
+			<column name="AGE" />
+		</property>
+		<property name="address" type="string">
+			<column name="ADDRESS" length="60" />
+		</property>
+		<property name="isActive" type="java.lang.Byte">
+			<column name="IS_ACTIVE" />
+		</property>
+		<property name="description" type="string">
+			<column name="DESCRIPTION" />
+		</property>
+		<property name="createdDatetime" type="timestamp">
+			<column name="CREATED_DATETIME" length="19" />
+		</property>
+		<property name="modifiedDatetime" type="timestamp">
+			<column name="MODIFIED_DATETIME" length="19" />
+		</property>
+
+		<set name="governmentHospitals" inverse="true">
+			<key>
+				<column name="DOCTOR_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.GovernmentHospital" />
+		</set>
+
+		<set name="doctorContacts" inverse="true">
+			<key>
+				<column name="DOCTOR_ID" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.configuration.contactmanagement.domain.DoctorContact" />
+		</set>
+
+		<set name="channelCenterDoctors" inverse="true" fetch="select">
+			<key>
+				<column name="DOCTOR_ID" not-null="true" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenterDoctor" />
+		</set>
+
+		<set name="clinics" inverse="true">
+			<key>
+				<column name="DOCTOR_ID" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+		</set>
+
+		<join catalog="smartclinic" table="DOCTOR_CONTACT" inverse="false">
+			<!-- Here inverse="true" then hibernate will not insert or update the properties defined by this join. -->
+			<key column="DOCTOR_ID" />
+			<property name="email" type="string" insert="true" update="true" column="EMAIL" />
+			<property name="web" type="string" insert="true" update="true" column="WEB" />
+			<property name="mobile" type="string" insert="true" update="true" column="MOBILE" />
+			<property name="residence" type="string" insert="true" update="true" column="RESIDENCE" />
+			<property name="fax" type="string" insert="true" update="true" column="FAX" />
+			<property name="contactType" type="string" insert="true" update="true" column="CONTACT_TYPE" />
+		</join>
+
+		<join catalog="smartclinic" table="SPECIALITY" inverse="false">
+			<!-- Here inverse="true" then hibernate will not insert or update the properties defined by this join. -->
+			<key column="SPECIALITY_ID" />
+			<property name="specialityCode" type="string" insert="true" update="true" column="SPECIALITY_CODE" />
+		</join>
+	</class>
+
+	<sql-query name="fetchDoctors">
+		<return alias="d" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" />
+        <![CDATA[
+            select
+                d.*,
+                dc.EMAIL,
+                dc.WEB,
+                dc.MOBILE,
+                dc.RESIDENCE,
+                dc.FAX,
+                dc.CONTACT_TYPE,
+                null as SPECIALITY_CODE
+              from smartchannel.DOCTOR d
+              left outer join smartchannel.DOCTOR_CONTACT dc
+                on dc.DOCTOR_ID = d.DOCTOR_ID   
+        ]]>
+	</sql-query>
+
+	<sql-query name="fetchDoctorsByCriteria">
+		<return alias="d" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" />
+        <![CDATA[
+            select
+                d.*,
+                dc.EMAIL,
+                dc.WEB,
+                dc.MOBILE,
+                dc.RESIDENCE,
+                dc.FAX,
+                dc.CONTACT_TYPE,
+                sp.SPECIALITY_CODE
+              from smartclinic.DOCTOR d
+              left outer join smartclinic.DOCTOR_CONTACT dc
+                on dc.DOCTOR_ID = d.DOCTOR_ID
+              left outer join smartclinic.SPECIALITY sp
+                on sp.SPECIALITY_ID = d.SPECIALITY_ID
+              where 
+                (d.DOCTOR_ID = :doctorId or :doctorId is null)
+              
+        ]]>
+	</sql-query>
+
+	<sql-query name="findDoctorByUniqueFields">
+		<return alias="d" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" />
+        <![CDATA[
+            select
+                d.*,
+                dc.EMAIL,
+                dc.WEB,
+                dc.MOBILE,
+                dc.RESIDENCE,
+                dc.FAX,
+                dc.CONTACT_TYPE,
+                null as SPECIALITY_CODE
+              from smartclinic.DOCTOR d
+              left outer join smartclinic.DOCTOR_CONTACT dc
+                on dc.DOCTOR_ID = d.DOCTOR_ID
+              where
+                (d.REGISTRATION_NUMBER = :registrationNumber)
+        ]]>
+	</sql-query>
+</hibernate-mapping>

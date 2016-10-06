@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class catalog="smartclinic" name="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" table="CLINIC">
+		<id name="clinicId" type="java.lang.Integer">
+			<column name="CLINIC_ID" />
+			<generator class="identity" />
+		</id>
+
+		<many-to-one class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicType" fetch="select"
+			name="clinicType">
+			<column name="CLINIC_TYPE_ID" />
+		</many-to-one>
+
+		<many-to-one name="doctor" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" fetch="select">
+			<column name="DOCTOR_ID" />
+		</many-to-one>
+
+		<many-to-one name="channelCenter" class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter"
+			fetch="select">
+			<column name="CHANNEL_CENTER_ID" />
+		</many-to-one>
+
+		<property name="clinicCode" type="string">
+			<column length="45" name="CLINIC_CODE" />
+		</property>
+
+		<property name="startTime" type="string">
+			<column length="19" name="START_TIME" />
+		</property>
+
+		<property name="endTime" type="string">
+			<column length="19" name="END_TIME" />
+		</property>
+
+		<property name="isActive" type="string">
+			<column name="IS_ACTIVE" />
+		</property>
+
+		<property name="clinicalFee" type="java.lang.Double">
+			<column name="CLINICAL_FEE" precision="22" scale="0" />
+		</property>
+
+		<property name="consultationFee" type="java.lang.Double">
+			<column name="CONSULTATION_FEE" precision="22" scale="0" />
+		</property>
+
+		<property name="createdDatetime" type="timestamp">
+			<column length="19" name="CREATED_DATETIME" />
+		</property>
+
+		<property name="modifiedDatetime" type="timestamp">
+			<column length="19" name="MODIFIED_DATETIME" />
+		</property>
+
+		<property name="dateFrom" type="timestamp">
+			<column length="19" name="DATE_FROM" />
+		</property>
+
+		<property name="description" type="string">
+			<column length="19" name="DESCRIPTION" />
+		</property>
+
+		<property name="maxAppointments" type="java.lang.Integer">
+			<column length="11" name="MAX_APPOINTMENTS" />
+		</property>
+
+		<set inverse="true" name="appoinments">
+			<key>
+				<column name="CLINIC_ID" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Appointment" />
+		</set>
+
+		<set name="clinicProperties" inverse="true">
+			<key>
+				<column name="CLINIC_ID" />
+			</key>
+			<one-to-many class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.ClinicProperty" />
+		</set>
+
+		<!-- ###################### Dummy columns for retrieving data ############################ -->
+		<property name="doctorId" type="java.lang.Integer" insert="false" update="false">
+			<column name="DOCTOR_ID" />
+		</property>
+
+		<property name="clinicTypeId" type="java.lang.Integer" insert="false" update="false">
+			<column name="CLINIC_TYPE_ID" />
+		</property>
+
+		<property name="channelCenterId" type="java.lang.Integer" insert="false" update="false">
+			<column name="CHANNEL_CENTER_ID" />
+		</property>
+
+		<!-- ###################### Joined Tables ################################################ -->
+
+		<join catalog="smartclinic" table="DOCTOR" inverse="true">
+			<key column="DOCTOR_ID" />
+			<property name="doctorName" type="string" insert="false" update="false" column="NAME_WITH_INNITIALS" />
+			<property name="registrationNumber" type="string" insert="false" update="false" column="REGISTRATION_NUMBER" />
+		</join>
+
+		<join catalog="smartclinic" table="CHANNEL_CENTER" inverse="true">
+			<key column="CHANNEL_CENTER_ID" />
+			<property name="channelCenterName" type="string" insert="false" update="false" column="CHANNEL_CENTER_NAME" />
+			<property name="address" type="string" insert="false" update="false" column="ADDRESS" />
+		</join>
+
+		<join catalog="smartclinic" table="CLINIC_TYPE" inverse="true">
+			<key column="CLINIC_TYPE_ID" />
+			<property name="clinicTypeCode" type="string" insert="false" update="false" column="CLINIC_TYPE_CODE" />
+		</join>
+
+		<join catalog="smartclinic" table="SPECIALITY" inverse="true">
+			<key column="SPECIALITY_ID" />
+			<property name="specialityCode" type="string" insert="false" update="false" column="SPECIALITY_CODE" />
+			<property name="specialityId" type="java.lang.Integer" insert="false" update="false" column="SPECIALITY_ID" />
+		</join>
+	</class>
+
+	<sql-query name="findClinicsByCriteria">
+		<return alias="d" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+        <![CDATA[
+            select
+                cl.*,
+                d.NAME_WITH_INNITIALS,
+                cc.CHANNEL_CENTER_NAME,
+                ct.CLINIC_TYPE_CODE,
+                null as SPECIALITY_CODE,
+                null as REGISTRATION_NUMBER,
+                null as ADDRESS,
+                null as SPECIALITY_ID
+              from smartclinic.CLINIC cl
+              left outer join smartclinic.DOCTOR d
+                on d.DOCTOR_ID = cl.DOCTOR_ID
+              left outer join smartclinic.CHANNEL_CENTER cc
+                on cc.CHANNEL_CENTER_ID = cl.CHANNEL_CENTER_ID
+              left outer join smartclinic.CLINIC_TYPE ct
+                on ct.CLINIC_TYPE_ID = cl.CLINIC_TYPE_ID
+        ]]>
+	</sql-query>
+
+	<sql-query name="findAllClinicsByCriteria">
+		<return alias="app" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+        <![CDATA[
+            select 
+                c.*,
+                null as CLINIC_TYPE_CODE,
+                d.NAME_WITH_INNITIALS,
+                d.REGISTRATION_NUMBER,
+	            sp.SPECIALITY_CODE,
+	            cc.ADDRESS,
+	            cc.CHANNEL_CENTER_NAME,
+	            d.DOCTOR_ID,
+	            sp.SPECIALITY_ID,
+	            cc.CHANNEL_CENTER_ID
+              from smartclinic.CLINIC c
+              left outer join smartclinic.DOCTOR d
+                on d.DOCTOR_ID = c.DOCTOR_ID
+              left outer join smartclinic.SPECIALITY sp
+                on sp.SPECIALITY_ID = d.SPECIALITY_ID
+              left outer join smartclinic.CHANNEL_CENTER cc
+                on cc.CHANNEL_CENTER_ID = c.CHANNEL_CENTER_ID
+              where
+                ((:specialityId is not null and sp.SPECIALITY_ID = :specialityId) or(:specialityId is null))
+                and ((:doctorId is not null and d.DOCTOR_ID = :doctorId) or (:doctorId is null))
+                and ((:channelCenterId is not null and cc.CHANNEL_CENTER_ID = :channelCenterId) or (:channelCenterId is null))
+                and ((:fromDate is not null and :toDate is not null and c.DATE_FROM >= :fromDate and c.DATE_FROM <= :toDate)
+                  or (:fromDate is not null and :toDate is null and c.DATE_FROM = :fromDate)
+                  or (:fromDate is null and :toDate is null))
+        ]]>
+	</sql-query>
+	<!--fromDate should not be null it should be set today as the fromDate by default Change the query later -->
+
+	<sql-query name="findAllClinicsByCriteriaWithParam">
+		<return alias="app" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+        <![CDATA[
+            select 
+                c.*,
+                null as CLINIC_TYPE_CODE,
+                d.NAME_WITH_INNITIALS,
+                d.REGISTRATION_NUMBER,
+	            sp.SPECIALITY_CODE,
+	            cc.ADDRESS,
+	            cc.CHANNEL_CENTER_NAME,
+	            d.DOCTOR_ID,
+	            sp.SPECIALITY_ID,
+	            cc.CHANNEL_CENTER_ID
+              from smartclinic.CLINIC c
+              left outer join smartclinic.DOCTOR d
+                on d.DOCTOR_ID = c.DOCTOR_ID
+              left outer join smartclinic.SPECIALITY sp
+                on sp.SPECIALITY_ID = d.SPECIALITY_ID
+              left outer join smartclinic.CHANNEL_CENTER cc
+                on cc.CHANNEL_CENTER_ID = c.CHANNEL_CENTER_ID
+              where
+                (sp.SPECIALITY_ID = :specialityId)
+                and (cc.CHANNEL_CENTER_ID = :channelCenterId)
+                and (d.DOCTOR_ID = :doctorId)
+        ]]>
+	</sql-query>
+	
+	<sql-query name="fetchSelectedDoctorInOtherChannelCenters">
+		<return alias="cl" class="com.capsurfit.smartchannel.app.appservice.channelservicemanagement.domain.Clinic" />
+        <![CDATA[
+            select 
+                cl.*,
+                cc.CHANNEL_CENTER_NAME,
+				cc.ADDRESS,
+				null as CLINIC_TYPE_CODE,
+                null as NAME_WITH_INNITIALS,
+                null as REGISTRATION_NUMBER,
+	            null as SPECIALITY_CODE,
+	            cl.DOCTOR_ID,
+	            d.SPECIALITY_ID,
+	            cc.CHANNEL_CENTER_ID
+              from smartclinic.CLINIC cl
+              left outer join smartclinic.CHANNEL_CENTER cc
+				on cc.CHANNEL_CENTER_ID = cl.CHANNEL_CENTER_ID
+			  left outer join smartclinic.DOCTOR d
+			    on d.DOCTOR_ID = cl.DOCTOR_ID
+			  where
+                (cl.DOCTOR_ID = :doctorId)
+                and (cc.CHANNEL_CENTER_ID != :channelCenterId)
+        ]]>
+	</sql-query>
+
+</hibernate-mapping>

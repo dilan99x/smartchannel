@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenterDoctor" table="CHANNEL_CENTER_DOCTOR" catalog="smartchannel">
+        <composite-id name="id" class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenterDoctorId">
+            <key-property name="channelCenterId" type="int">
+                <column name="CHANNEL_CENTER_ID" />
+            </key-property>
+            <key-property name="doctorId" type="int">
+                <column name="DOCTOR_ID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="channelCenter" class="com.capsurfit.smartchannel.app.configuration.channelcentermanagement.domain.ChannelCenter" update="false" insert="false" fetch="select">
+            <column name="CHANNEL_CENTER_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="doctor" class="com.capsurfit.smartchannel.app.configuration.doctormanagement.domain.Doctor" update="false" insert="false" fetch="select">
+            <column name="DOCTOR_ID" not-null="true" />
+        </many-to-one>
+        <property name="createdDatetime" type="timestamp">
+            <column name="CREATED_DATETIME" length="19" />
+        </property>
+        <property name="modifiedDatetime" type="timestamp">
+            <column name="MODIFIED_DATETIME" length="19" />
+        </property>
+        
+        <set name="offers" inverse="true">
+            <key>
+                <column name="CHANNEL_CENTER_ID" not-null="true" />
+                <column name="DOCTOR_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.capsurfit.smartchannel.app.configuration.miscellaneousmanagement.domain.Offer" />
+        </set>
+    </class>
+</hibernate-mapping>
